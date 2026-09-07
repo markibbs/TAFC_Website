@@ -1,0 +1,37 @@
+{
+  "club": {
+    "name": "Teddington Athletic FC",
+    "strapline": "Community football · Est. 2006",
+    "ageRange": "Boys & girls · U6–U18",
+    "teamCount": "46 teams · Boys & Girls U6–U18",
+    "address": ["Teddington Cricket Club", "Dora Jordan Road, Teddington · TW11 0EP"]
+  },
+  "links": {
+    "pitchero": "https://www.pitchero.com/clubs/teddingtonathleticfc2",
+    "pitcheroLogin": "https://www.pitchero.com/login",
+    "joinForm": "https://forms.gle/L49D2qA8ZgNzr2Dp7",
+    "kitShop": "https://www.kitlocker.shop/teddingtonafc/match-kit"
+  },
+  "hero": {
+    "headlineLine1": "Play local.",
+    "headlineLine2": "Dream big.",
+    "supportingCopy": "Community football for boys and girls from U6 to U18, with teams for every stage of the game.",
+    "image": "/tafc-hero-mixed.png",
+    "imageAlt": "A mixed group of TAFC youth players celebrating together in the new red kit",
+    "badgeTitle": "One club",
+    "badgeCopy": "Every team · Everyone welcome"
+  },
+  "recruitment": {
+    "heading": "Teams recruiting now",
+    "summary": "We have immediate spaces in a number of teams.",
+    "ads": [
+      { "group": "U13 Girls", "message": "Goalkeeper wanted", "image": "/recruitment-u13-girls-v2.png" },
+      { "group": "U15 Boys", "message": "Recruiting new players", "image": "/recruitment-u15-boys-v2.png" },
+      { "group": "New U6s", "message": "Recruiting boys & girls", "image": "/recruitment-u6-mixed-v2.png" }
+    ]
+  },
+  "news": {
+    "heading": "Latest news & events",
+    "copy": "Announcements, recruitment, match reports and events continue to be managed in Pitchero."
+  }
+}
