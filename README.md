@@ -20,7 +20,7 @@ pnpm dev
 ## Cloudflare build settings
 
 - Build command: `pnpm build`
-- Deploy command: `pnpm exec wrangler deploy --config dist/server/wrangler.json`
+- Deploy command: `npx wrangler deploy`
 - Node.js version: 22
 
 The production domain should only be pointed at this deployment after its temporary Cloudflare address has been checked.
