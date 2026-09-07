@@ -1,227 +1,132 @@
-'use client';
-
-import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
-  BookOpenText,
   CalendarDays,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  CircleUserRound,
-  ClipboardList,
   ExternalLink,
-  Info,
-  Mail,
+  LockKeyhole,
+  MapPin,
+  Menu,
   Newspaper,
+  ShieldCheck,
   Shirt,
-  ShoppingBasket,
   UsersRound,
 } from 'lucide-react';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import site from '@/content/site.json';
 
-const { club, hero, links, recruitment, news } = site;
-const pitchero = links.pitchero;
-const joinForm = links.joinForm;
-const recruitmentAds = recruitment.ads;
+const pitchero = 'https://www.pitchero.com/clubs/teddingtonathleticfc2';
+const joinForm = 'https://forms.gle/L49D2qA8ZgNzr2Dp7';
 
-const journeys = [
-  {
-    eyebrow: 'New to the club',
-    title: 'I want to join TAFC',
-    description: 'Find the right age group, learn about our teams and register your interest.',
-    icon: UsersRound,
-    className: 'journey-new',
-    links: [
-      { label: 'Join TAFC', href: joinForm, icon: ClipboardList },
-      { label: 'Find a team', href: `${pitchero}/teams`, icon: UsersRound },
-    ],
-  },
-  {
-    eyebrow: 'Players & parents',
-    title: 'I’m already a member',
-    description: 'Sign in, pay subscriptions or order your official TAFC kit.',
-    icon: CircleUserRound,
-    className: 'journey-member',
-    links: [
-      { label: 'Pitchero login', href: links.pitcheroLogin, icon: CircleUserRound },
-      { label: 'Pay subscriptions', href: `${pitchero}/payments`, icon: ShoppingBasket },
-      { label: 'Kitlocker shop', href: links.kitShop, icon: Shirt },
-    ],
-  },
-  {
-    eyebrow: 'Useful resources',
-    title: 'I’m looking for information',
-    description: 'Training, documents, news and the right person to contact.',
-    icon: Info,
-    className: 'journey-info',
-    links: [
-      { label: 'Training schedule', href: `${pitchero}/d/documents.html?group_id=21745`, icon: CalendarDays },
-      { label: 'Club handbook', href: `${pitchero}/d/documents.html?group_id=0`, icon: BookOpenText },
-      { label: 'Contact the club', href: `${pitchero}/contact`, icon: Mail },
-    ],
-  },
+const recruiting = [
+  { group: 'U13 Girls', message: 'Goalkeeper wanted', image: '/recruitment-u13-girls.png' },
+  { group: 'U15 Boys', message: 'New players wanted', image: '/recruitment-u15-boys.png' },
+  { group: 'New U6s', message: 'Boys & girls welcome', image: '/recruitment-u6-mixed.png' },
 ];
 
 export default function Home() {
-  const recruitmentTrack = useRef<HTMLDivElement>(null);
-  const recruitmentIndex = useRef(0);
-  const [recruitmentOpen, setRecruitmentOpen] = useState(false);
-  const [recruitmentPaused, setRecruitmentPaused] = useState(false);
-
-  const moveRecruitment = useCallback((direction: number) => {
-    const track = recruitmentTrack.current;
-    if (!track) return;
-    const cards = Array.from(track.children) as HTMLElement[];
-    if (!cards.length) return;
-    recruitmentIndex.current = (recruitmentIndex.current + direction + cards.length) % cards.length;
-    const card = cards[recruitmentIndex.current];
-    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
-  }, []);
-
-  useEffect(() => {
-    if (!recruitmentOpen || recruitmentPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => moveRecruitment(1), 5200);
-    return () => window.clearInterval(timer);
-  }, [moveRecruitment, recruitmentOpen, recruitmentPaused]);
-
-  const syncRecruitmentIndex = () => {
-    const track = recruitmentTrack.current;
-    if (!track) return;
-    const cards = Array.from(track.children) as HTMLElement[];
-    recruitmentIndex.current = cards.reduce((closest, card, index) => {
-      const currentDistance = Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft);
-      const closestDistance = Math.abs(cards[closest].offsetLeft - track.offsetLeft - track.scrollLeft);
-      return currentDistance < closestDistance ? index : closest;
-    }, 0);
-  };
-
   return (
     <main>
       <header className="site-header" id="top">
-        <a className="brand" href="#top" aria-label="Teddington Athletic FC home">
+        <a className="header-brand" href="#top" aria-label="Teddington Athletic FC home">
           <img src="/tafc-logo.png" alt="Teddington Athletic FC crest" />
-          <span><strong>{club.name}</strong><small>{club.strapline}</small></span>
+          <span><strong>Teddington Athletic FC</strong><small>Community football · Est. 2006</small></span>
         </a>
-        <nav aria-label="Main navigation">
-          <a href={joinForm} target="_blank" rel="noreferrer">Join</a>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <a href={joinForm} target="_blank" rel="noreferrer">Join us</a>
           <a href={`${pitchero}/teams`} target="_blank" rel="noreferrer">Teams</a>
-          <a href={`${pitchero}/news`} target="_blank" rel="noreferrer">News &amp; events</a>
+          <a href={`${pitchero}/news`} target="_blank" rel="noreferrer">News</a>
+          <a href={`${pitchero}/information`} target="_blank" rel="noreferrer">Club info</a>
           <a href={`${pitchero}/contact`} target="_blank" rel="noreferrer">Contact</a>
-          <a className="login-link" href={links.pitcheroLogin} target="_blank" rel="noreferrer">Member login <ExternalLink size={14} /></a>
+          <a className="nav-login" href="https://www.pitchero.com/login" target="_blank" rel="noreferrer">Member login</a>
         </nav>
+        <details className="mobile-menu">
+          <summary aria-label="Open navigation"><Menu /></summary>
+          <nav aria-label="Mobile navigation">
+            <a href={joinForm}>Join us</a><a href={`${pitchero}/teams`}>Teams</a><a href={`${pitchero}/news`}>News</a>
+            <a href={`${pitchero}/information`}>Club info</a><a href={`${pitchero}/contact`}>Contact</a><a href="https://www.pitchero.com/login">Member login</a>
+          </nav>
+        </details>
       </header>
 
-      <section className="hero">
-        <img className="hero-image" src={hero.image} alt={hero.imageAlt} />
-        <div className="hero-content">
-          <span className="hero-kicker">{club.ageRange}</span>
-          <h1>{hero.headlineLine1}<br />{hero.headlineLine2}</h1>
-          <p>{hero.supportingCopy}</p>
+      <section className="hero" aria-labelledby="hero-title">
+        <img className="hero-photo" src="/tafc-hero-mixed.png" alt="A mixed group of Teddington Athletic FC youth players together on the pitch" />
+        <div className="hero-shade" />
+        <div className="hero-inner">
+          <img className="hero-crest" src="/tafc-logo.png" alt="" />
+          <p className="eyebrow">One club · Every team · Everyone welcome</p>
+          <h1 id="hero-title">Play local.<br />Dream big.</h1>
+          <p className="hero-copy">Community football for boys and girls from U6 to U18, with teams for every stage of the game.</p>
           <div className="hero-actions">
-            <a className="button button-red" href={joinForm} target="_blank" rel="noreferrer">Join TAFC <ArrowRight size={18} /></a>
-            <a className="button button-white" href={`${pitchero}/teams`} target="_blank" rel="noreferrer">Find your team</a>
+            <a className="button button-red" href={joinForm} target="_blank" rel="noreferrer">Join TAFC <ArrowRight /></a>
+            <a className="button button-ghost" href={`${pitchero}/teams`} target="_blank" rel="noreferrer">Find your team</a>
           </div>
         </div>
-        <div className="hero-badge"><strong>{hero.badgeTitle}</strong><span>{hero.badgeCopy}</span></div>
+        <div className="hero-affiliations" aria-label="Club affiliations">
+          <img src="/fa-respect.png" alt="The FA Respect" />
+          <img src="/fa-accredited-3star.png" alt="England Football three-star accredited club" />
+          <img src="/middlesex-fa.png" alt="Middlesex FA" />
+        </div>
       </section>
 
-      <aside className="recruitment-board" aria-labelledby="recruitment-title">
-        <Collapsible open={recruitmentOpen} onOpenChange={setRecruitmentOpen}>
-          <CollapsibleTrigger className="recruitment-trigger">
-            <span className="recruitment-heading-copy">
-              <span className="recruitment-kicker">Recruiting now</span>
-              <strong id="recruitment-title">{recruitment.heading}</strong>
-              <span>{recruitment.summary}</span>
-            </span>
-            <span className="recruitment-trigger-cta">
-              {recruitmentOpen ? 'Hide recruiting teams' : 'See which teams are recruiting'}
-              <ChevronDown className={recruitmentOpen ? 'is-open' : ''} aria-hidden="true" />
-            </span>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="recruitment-content">
-            <div className="recruitment-content-heading">
-              <span>{recruitmentAds.length} teams currently have spaces</span>
-              <div className="carousel-controls" aria-label="Recruitment carousel controls">
-                <button type="button" onClick={() => moveRecruitment(-1)} aria-label="Previous recruiting team"><ChevronLeft /></button>
-                <button type="button" onClick={() => moveRecruitment(1)} aria-label="Next recruiting team"><ChevronRight /></button>
-              </div>
-            </div>
-            <div
-              className="recruitment-ads"
-              ref={recruitmentTrack}
-              aria-label="Teams currently recruiting"
-              onScroll={syncRecruitmentIndex}
-              onMouseEnter={() => setRecruitmentPaused(true)}
-              onMouseLeave={() => setRecruitmentPaused(false)}
-              onFocusCapture={() => setRecruitmentPaused(true)}
-              onBlurCapture={() => setRecruitmentPaused(false)}
-              onPointerDown={() => setRecruitmentPaused(true)}
-              onPointerUp={() => setRecruitmentPaused(false)}
-            >
-              {recruitmentAds.map((advert) => (
-                <a className="recruitment-ad" href={joinForm} target="_blank" rel="noreferrer" key={advert.group}>
-                  <span className="recruitment-ad-copy"><small>{advert.group}</small><strong>{advert.message}</strong><span className="recruitment-apply">Apply <ArrowRight size={15} /></span></span>
-                  <span className="recruitment-ad-image"><img src={advert.image} alt={`${advert.group} recruitment`} /></span>
-                </a>
-              ))}
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-      </aside>
-
-      <section className="journeys" aria-labelledby="journeys-title">
-        <div className="section-intro">
-          <span>Start here</span>
-          <h2 id="journeys-title">How can we help?</h2>
-          <p>Choose the option that best describes you. We’ll take you straight to the right place.</p>
-        </div>
-        <div className="journey-grid">
-          {journeys.map((journey) => {
-            const JourneyIcon = journey.icon;
-            return (
-              <article className={`journey-card ${journey.className}`} key={journey.title}>
-                <div className="journey-heading">
-                  <span className="journey-icon"><JourneyIcon /></span>
-                  <span className="journey-eyebrow">{journey.eyebrow}</span>
-                </div>
-                <h3>{journey.title}</h3>
-                <p>{journey.description}</p>
-                <div className="journey-links">
-                  {journey.links.map((link) => {
-                    const LinkIcon = link.icon;
-                    return (
-                      <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>
-                        <LinkIcon size={18} /><span>{link.label}</span><ChevronRight size={17} />
-                      </a>
-                    );
-                  })}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-        <p className="new-tab-note"><ExternalLink size={14} /> External services open in a new tab, leaving this homepage available to return to.</p>
+      <section className="announcement" aria-labelledby="announcement-title">
+        <p className="section-kicker">2026/27 season</p>
+        <h2 id="announcement-title">Registration and waiting list now open</h2>
+        <p>New to TAFC? Register your interest and we’ll help you find the right age group.</p>
+        <a className="button button-blue" href={joinForm} target="_blank" rel="noreferrer">Join TAFC <ArrowRight /></a>
       </section>
 
-      <section className="latest">
-        <div className="latest-inner">
-          <span className="latest-icon"><Newspaper /></span>
-          <div><span>From across the club</span><h2>{news.heading}</h2><p>{news.copy}</p></div>
-          <a className="button button-outline" href={`${pitchero}/news`} target="_blank" rel="noreferrer">Visit club news <ArrowRight size={18} /></a>
+      <section className="club-story" aria-labelledby="about-title">
+        <div className="story-image-wrap"><img src="/tafc-match.jpg" alt="Teddington Athletic FC players in a match" /></div>
+        <div className="story-copy">
+          <p className="section-kicker">Our club</p>
+          <h2 id="about-title">Football at the heart of Teddington</h2>
+          <p>TAFC is a volunteer-led community club giving local children a place to enjoy football, build confidence and belong to a team.</p>
+          <p>From a first session at U6 to competitive football at U18, our focus stays the same: a safe, positive environment where every player can develop.</p>
+          <div className="club-stats" aria-label="Club facts"><span><strong>46</strong> teams</span><span><strong>U6–U18</strong> age groups</span><span><strong>3-star</strong> accredited</span></div>
+          <a className="text-link" href={`${pitchero}/information`} target="_blank" rel="noreferrer">More about TAFC <ArrowRight /></a>
+        </div>
+      </section>
+
+      <section className="recruiting" aria-labelledby="recruiting-title">
+        <div className="section-heading">
+          <div><p className="section-kicker">Places available</p><h2 id="recruiting-title">Teams recruiting now</h2></div>
+          <a className="text-link" href={joinForm} target="_blank" rel="noreferrer">Join the waiting list <ArrowRight /></a>
+        </div>
+        <div className="recruiting-grid">
+          {recruiting.map((item) => (
+            <a className="recruit-card" href={joinForm} target="_blank" rel="noreferrer" key={item.group}>
+              <img src={item.image} alt={`${item.group} players in action`} />
+              <span className="recruit-overlay"><small>{item.group}</small><strong>{item.message}</strong><span>Apply now <ArrowRight /></span></span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="pathways" aria-label="Useful club links">
+        <a className="pathway pathway-red" href={`${pitchero}/contact`} target="_blank" rel="noreferrer">
+          <ShieldCheck /><span><small>Player welfare</small><strong>Safeguarding</strong><em>Policies, contacts and support</em></span><ArrowRight className="path-arrow" />
+        </a>
+        <a className="pathway pathway-blue" href="https://www.pitchero.com/login" target="_blank" rel="noreferrer">
+          <LockKeyhole /><span><small>Players & parents</small><strong>Member area</strong><em>Login to Pitchero</em></span><ExternalLink className="path-arrow" />
+        </a>
+        <a className="pathway pathway-light" href="https://www.kitlocker.shop/teddingtonafc/match-kit" target="_blank" rel="noreferrer">
+          <Shirt /><span><small>Official Nike kit</small><strong>Club shop</strong><em>Visit Kitlocker</em></span><ExternalLink className="path-arrow" />
+        </a>
+      </section>
+
+      <section className="news" aria-labelledby="news-title">
+        <div className="news-copy"><p className="section-kicker">Around the club</p><h2 id="news-title">Latest news & events</h2><p>Keep up with club announcements, match reports, events and everything happening across our teams.</p><a className="button button-red" href={`${pitchero}/news`} target="_blank" rel="noreferrer">Read club news <Newspaper /></a></div>
+        <div className="quick-links">
+          <a href={`${pitchero}/teams`} target="_blank" rel="noreferrer"><UsersRound /><span><strong>Teams & fixtures</strong><small>Find your age group</small></span><ArrowRight /></a>
+          <a href={`${pitchero}/d/documents.html?group_id=21745`} target="_blank" rel="noreferrer"><CalendarDays /><span><strong>Training schedule</strong><small>Dates, times and venues</small></span><ArrowRight /></a>
+          <a href={`${pitchero}/contact`} target="_blank" rel="noreferrer"><MapPin /><span><strong>Contact & location</strong><small>Find the right person</small></span><ArrowRight /></a>
         </div>
       </section>
 
       <footer>
-        <div className="footer-brand"><img src="/tafc-logo.png" alt="" /><span><strong>{club.name}</strong><small>{club.teamCount}</small></span></div>
-        <address>{club.address[0]}<br />{club.address[1]}</address>
-        <div className="footer-logos" aria-label="Football affiliations">
-          <img src="/fa-respect.png" alt="The FA Respect" />
-          <img src="/fa-accredited-3star.png" alt="England Football three-star accredited club" />
-          <img src="/middlesex-fa.png" alt="Middlesex County Football Association" />
+        <div className="footer-main">
+          <div className="footer-brand"><img src="/tafc-logo.png" alt="" /><span><strong>Teddington Athletic FC</strong><small>Community football since 2006</small></span></div>
+          <div className="footer-links"><a href={joinForm}>Join TAFC</a><a href={`${pitchero}/teams`}>Teams</a><a href={`${pitchero}/news`}>News</a><a href={`${pitchero}/contact`}>Contact</a><a href={`${pitchero}/contact`}>Safeguarding</a></div>
+          <address>Teddington Cricket Club<br />Dora Jordan Road, Teddington · TW11 0EP</address>
         </div>
-        <div className="footer-nav"><a className="safeguarding-link" href={`${pitchero}/contact`} target="_blank" rel="noreferrer">Safeguarding</a><a href={`${pitchero}/information`} target="_blank" rel="noreferrer">Information</a><a href={`${pitchero}/contact`} target="_blank" rel="noreferrer">Contact</a><a href={links.pitcheroLogin} target="_blank" rel="noreferrer">Pitchero login</a></div>
+        <div className="footer-bottom"><span>© Teddington Athletic FC</span><span>FA affiliated · Middlesex FA</span></div>
       </footer>
     </main>
   );
