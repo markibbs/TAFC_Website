@@ -47,7 +47,7 @@ const journeys = [
     links: [
       { label: 'Pitchero login', href: links.pitcheroLogin, icon: CircleUserRound },
       { label: 'Pay subscriptions', href: `${pitchero}/payments`, icon: ShoppingBasket },
-      { label: 'Kitlocker shop', href: links.kitShop, icon: Shirt },
+      { label: 'Kitlocker shop', href: links.kitShop, icon: Shirt, newTab: true },
     ],
   },
   {
@@ -105,11 +105,11 @@ export default function Home() {
           <span><strong>{club.name}</strong><small>{club.strapline}</small></span>
         </a>
         <nav aria-label="Main navigation">
-          <a href={joinForm} target="_blank" rel="noreferrer">Join</a>
-          <a href={`${pitchero}/teams`} target="_blank" rel="noreferrer">Teams</a>
-          <a href={`${pitchero}/news`} target="_blank" rel="noreferrer">News &amp; events</a>
-          <a href={`${pitchero}/contact`} target="_blank" rel="noreferrer">Contact</a>
-          <a className="login-link" href={links.pitcheroLogin} target="_blank" rel="noreferrer">Member login <ExternalLink size={14} /></a>
+          <a href={joinForm}>Join</a>
+          <a href={`${pitchero}/teams`}>Teams</a>
+          <a href={`${pitchero}/news`}>News &amp; events</a>
+          <a href={`${pitchero}/contact`}>Contact</a>
+          <a className="login-link" href={links.pitcheroLogin}>Member login</a>
         </nav>
       </header>
 
@@ -120,8 +120,8 @@ export default function Home() {
           <h1>{hero.headlineLine1}<br />{hero.headlineLine2}</h1>
           <p>{hero.supportingCopy}</p>
           <div className="hero-actions">
-            <a className="button button-red" href={joinForm} target="_blank" rel="noreferrer">Join TAFC <ArrowRight size={18} /></a>
-            <a className="button button-white" href={`${pitchero}/teams`} target="_blank" rel="noreferrer">Find your team</a>
+            <a className="button button-red" href={joinForm}>Join TAFC <ArrowRight size={18} /></a>
+            <a className="button button-white" href={`${pitchero}/teams`}>Find your team</a>
           </div>
         </div>
         <div className="hero-badge"><strong>{hero.badgeTitle}</strong><span>{hero.badgeCopy}</span></div>
@@ -161,7 +161,7 @@ export default function Home() {
               onPointerUp={() => setRecruitmentPaused(false)}
             >
               {recruitmentAds.map((advert) => (
-                <a className="recruitment-ad" href={joinForm} target="_blank" rel="noreferrer" key={advert.group}>
+                <a className="recruitment-ad" href={joinForm} key={advert.group}>
                   <span className="recruitment-ad-copy"><small>{advert.group}</small><strong>{advert.message}</strong><span className="recruitment-apply">Apply <ArrowRight size={15} /></span></span>
                   <span className="recruitment-ad-image"><img src={advert.image} alt={`${advert.group} recruitment`} /></span>
                 </a>
@@ -192,7 +192,7 @@ export default function Home() {
                   {journey.links.map((link) => {
                     const LinkIcon = link.icon;
                     return (
-                      <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>
+                      <a href={link.href} target={'newTab' in link && link.newTab ? '_blank' : undefined} rel={'newTab' in link && link.newTab ? 'noreferrer' : undefined} key={link.label}>
                         <LinkIcon size={18} /><span>{link.label}</span><ChevronRight size={17} />
                       </a>
                     );
@@ -202,14 +202,14 @@ export default function Home() {
             );
           })}
         </div>
-        <p className="new-tab-note"><ExternalLink size={14} /> External services open in a new tab, leaving this homepage available to return to.</p>
+        <p className="new-tab-note"><ExternalLink size={14} /> The Kitlocker shop opens in a new tab.</p>
       </section>
 
       <section className="latest">
         <div className="latest-inner">
           <span className="latest-icon"><Newspaper /></span>
           <div><span>From across the club</span><h2>{news.heading}</h2><p>{news.copy}</p></div>
-          <a className="button button-outline" href={`${pitchero}/news`} target="_blank" rel="noreferrer">Visit club news <ArrowRight size={18} /></a>
+          <a className="button button-outline" href={`${pitchero}/news`}>Visit club news <ArrowRight size={18} /></a>
         </div>
       </section>
 
@@ -221,7 +221,7 @@ export default function Home() {
           <img src="/fa-accredited-3star.png" alt="England Football three-star accredited club" />
           <img src="/middlesex-fa.png" alt="Middlesex County Football Association" />
         </div>
-        <div className="footer-nav"><a className="safeguarding-link" href={`${pitchero}/contact`} target="_blank" rel="noreferrer">Safeguarding</a><a href={`${pitchero}/information`} target="_blank" rel="noreferrer">Information</a><a href={`${pitchero}/contact`} target="_blank" rel="noreferrer">Contact</a><a href={links.pitcheroLogin} target="_blank" rel="noreferrer">Pitchero login</a></div>
+        <div className="footer-nav"><a className="safeguarding-link" href={`${pitchero}/contact`}>Safeguarding</a><a href={`${pitchero}/information`}>Information</a><a href={`${pitchero}/contact`}>Contact</a><a href={links.pitcheroLogin}>Pitchero login</a></div>
       </footer>
     </main>
   );
