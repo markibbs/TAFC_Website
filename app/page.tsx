@@ -73,7 +73,7 @@ export default function Home() {
       </section>
 
       <section className="club-story" aria-labelledby="about-title">
-        <div className="story-image-wrap"><img src="/tafc-match.jpg" alt="Teddington Athletic FC players in a match" /></div>
+        <div className="story-image-wrap"><img src="/tafc-team-winning-trophy.png" alt="TAFC youth team celebrating with their tournament trophy" /></div>
         <div className="story-copy">
           <p className="section-kicker">Our club</p>
           <h2 id="about-title">Football at the heart of Teddington</h2>
