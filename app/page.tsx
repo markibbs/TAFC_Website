@@ -58,7 +58,7 @@ const journeys = [
     className: 'journey-info',
     links: [
       { label: 'Training schedule', href: 'https://www.pitchero.com/clubs/teddingtonathleticfc2/a/training-schedule--64615.html', icon: CalendarDays },
-      { label: 'Club handbook', href: `${pitchero}/d/documents.html?group_id=0`, icon: BookOpenText },
+      { label: 'Club handbook', href: 'https://www.pitchero.com/document-download/79332/428655', icon: BookOpenText },
       { label: 'Contact the club', href: `${pitchero}/contact`, icon: Mail },
     ],
   },
