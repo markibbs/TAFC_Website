@@ -52,6 +52,7 @@ nav>a:not(.login-link):hover { border-color: var(--red); }
 .recruitment-ad { min-height: 0; flex: 0 0 min(42%,600px); position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(180px,.38fr) minmax(0,.62fr); padding: 0; background: var(--navy); color: white; border: 1px solid transparent; border-radius: 14px; box-shadow: 0 8px 20px #102d5520; scroll-snap-align: start; transition: transform .25s,box-shadow .25s,border-color .25s; }
 .recruitment-ad-copy { min-height: 240px; padding: 20px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; }
 .recruitment-ad-copy small { color: #ff657d; text-transform: uppercase; letter-spacing: .13em; font-size: 10px; font-weight: 900; }
+.recruitment-lozenge { display: inline-flex; align-items: center; min-height: 23px; padding: 0 9px; border-radius: 999px; background: #d21c45; color: white; font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
 .recruitment-ad-copy strong { font-size: 17px; line-height: 1.08; }
 .recruitment-ad-copy strong { font-size: clamp(18px,1.6vw,23px); }
 .recruitment-apply { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; color: white; font-size: 12px; font-weight: 850; }

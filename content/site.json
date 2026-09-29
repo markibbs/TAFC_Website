@@ -25,6 +25,13 @@
     "heading": "Teams recruiting now",
     "summary": "We have immediate spaces in a number of teams.",
     "ads": [
+      {
+        "group": "U18 Girls Tornadoes",
+        "message": "Experienced players wanted for the 2026/27 season",
+        "badge": "Recruiting now!",
+        "image": "/recruitment-u18-girls-tornadoes.png",
+        "href": "https://docs.google.com/forms/d/e/1FAIpQLSfIOTJkmUBmHqBb87MrcpJlJWQqhzhvwM_wS-ooh9IfJYt1Jw/viewform"
+      },
       { "group": "U13 Girls", "message": "Goalkeeper wanted", "image": "/recruitment-u13-girls-v2.png" },
       { "group": "U15 Boys", "message": "Recruiting new players", "image": "/recruitment-u15-boys-v2.png" },
       { "group": "New U6s", "message": "Recruiting boys & girls", "image": "/recruitment-u6-mixed-v2.png" }

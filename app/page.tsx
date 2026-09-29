@@ -57,7 +57,7 @@ const journeys = [
     icon: Info,
     className: 'journey-info',
     links: [
-      { label: 'Training schedule', href: `${pitchero}/d/documents.html?group_id=21745`, icon: CalendarDays },
+      { label: 'Training schedule', href: 'https://www.pitchero.com/clubs/teddingtonathleticfc2/a/training-schedule--64615.html', icon: CalendarDays },
       { label: 'Club handbook', href: `${pitchero}/d/documents.html?group_id=0`, icon: BookOpenText },
       { label: 'Contact the club', href: `${pitchero}/contact`, icon: Mail },
     ],
@@ -161,8 +161,8 @@ export default function Home() {
               onPointerUp={() => setRecruitmentPaused(false)}
             >
               {recruitmentAds.map((advert) => (
-                <a className="recruitment-ad" href={joinForm} key={advert.group}>
-                  <span className="recruitment-ad-copy"><small>{advert.group}</small><strong>{advert.message}</strong><span className="recruitment-apply">Apply <ArrowRight size={15} /></span></span>
+                <a className="recruitment-ad" href={advert.href ?? joinForm} key={advert.group}>
+                  <span className="recruitment-ad-copy">{advert.badge && <span className="recruitment-lozenge">{advert.badge}</span>}<small>{advert.group}</small><strong>{advert.message}</strong><span className="recruitment-apply">Apply <ArrowRight size={15} /></span></span>
                   <span className="recruitment-ad-image"><img src={advert.image} alt={`${advert.group} recruitment`} /></span>
                 </a>
               ))}
